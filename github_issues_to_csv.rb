@@ -69,18 +69,22 @@ temp_issues = []
 issues = []
 page = 0
 begin
-	page = page +1
-	temp_issues = client.list_issues("#{options.organization}/#{options.repository}", :state => "closed", :page => page)
-	issues = issues + temp_issues;
+	page += 1
+	temp_issues = client.list_issues("#{config['organization']}/#{config['repository']}",
+                                    :state => "closed", :page => page)
+	issues = issues + temp_issues
 end while not temp_issues.empty?
 temp_issues = []
 page = 0
 begin
-	page = page +1
-	temp_issues = client.list_issues("#{options.organization}/#{options.repository}", :state => "open", :page => page)
-	issues = issues + temp_issues;
+	page += 1
+	temp_issues = client.list_issues("#{config['organization']}/#{config['repository']}", 
+                                    :state => "open", :page => page)
+	issues = issues + temp_issues
 end while not temp_issues.empty?
  
+
+
 puts "Processing #{issues.size} issues..."
 issues.each do |issue|
 
