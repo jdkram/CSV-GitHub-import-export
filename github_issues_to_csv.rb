@@ -1,13 +1,13 @@
-#!/usr/bin/ruby
-# See the README for how to use this.
+#!/usr/bin/env ruby
 
 require 'rubygems'
 require 'octokit'
-require 'faraday'
 require 'csv'
-require 'optparse'
-require 'ostruct'
-require 'highline/import'
+require 'optparse' # Parsing options
+require 'highline/import' # For passwords on command line
+require 'yaml'
+
+config = YAML.load_file('config.yml')
 
 def password_prompt(message, mask='*')
   ask(message) { |q| q.echo = mask}
