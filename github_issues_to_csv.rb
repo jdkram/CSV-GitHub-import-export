@@ -33,6 +33,7 @@ opts_parser.parse!(ARGV)
 
 TIMEZONE_OFFSET="-4"
 org_repo = options.organization + "/" + options.repository
+TIMEZONE_OFFSET="0"
 
 if options.authkey == ""
   options.password = password_prompt('#{options.username} password: ')
