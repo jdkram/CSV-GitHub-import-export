@@ -31,22 +31,24 @@ end
 
 opts_parser.parse!(ARGV)
 
-org_repo = options.organization + "/" + options.repository
 TIMEZONE_OFFSET="0"
+org_repo = "#{config['organization']}/#{config['repository']}"
 
-if options.authkey == ""
-  options.password = password_prompt('#{options.username} password: ')
-  client = Octokit::Client.new(:login => options.username, :password => options.password)
+unless config['use_password']
+  config['authkey'] ||= password_prompt('OAuth key: ')
+  client = Octokit::Client.new(:access_token => config['authkey'])
 else
-  client = Octokit::Client.new(:access_token => options.authkey)
+  config['password'] ||= password_prompt("#{config['username']} password: ")
+  client = Octokit::Client.new(:login => config['username'], :password => config['password'])
 end
 user = client.user
 user.login
  
-csv = CSV.new(File.open(File.dirname(__FILE__) + "/" + options.file + ".csv", 'w', {:col_sep => ";"}))
- 
+config['output_csv'] ||= "./output_csvs/#{org_repo.sub(/\//, "_")}.csv" # Set default filename
+
+csv = CSV.new(config['output_csv'], {:col_sep => ","})
+
 puts "Initialising CSV file..."
-#CSV Headers
 header = [
   "Issue number",
   "Title",
@@ -101,7 +103,7 @@ issues.each do |issue|
 		milestone = milestone['title']
 	end
  
-	if ((options.milestone == "") || (milestone == options.milestone))
+	if (config['milestone'].nil? || milestone == config['milestone'])
     # Needs to match the header order above, date format are based on Jira default
     row = [
       issue['number'],
