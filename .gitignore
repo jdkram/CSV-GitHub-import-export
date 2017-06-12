@@ -1,2 +1,3 @@
 *.yml
 !sample_config.yml
+output_csvs/*
