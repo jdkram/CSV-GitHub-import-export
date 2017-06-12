@@ -13,74 +13,20 @@ def password_prompt(message, mask='*')
   ask(message) { |q| q.echo = mask}
 end
 
-# BEGIN INTERACTIVE SECTION
-# Comment out this section (from here down to where the end is marked) if you want to use this interactively
-
-options = OpenStruct.new
-options.organization = ""
-options.repository = ""
-options.username = ""
-options.password = ""
-options.authkey = ""
-options.file = ""
-options.milestone = ""
+# Handle commandline args
 
 opts_parser = OptionParser.new do |opts|
-  opts.banner = "Usage: example.rb [options]"
-  opts.separator ""
-  opts.separator "Specific options:"
+  opts.banner = "Usage: github_issues_to_csv.rb -c ./config.yml"
+  opts.separator "Optionally specify path to your config file, otherwise use ./config.yml"
 
-  opts.on("-o ORGANIZATION", "--organization ORGANIZATION", String, "Define you repo's local") do |o|
-    if o == ""
-      puts options
-      exit
-    end
-    options.organization = o
+  opts.on("-c CONFIG", "--config CONFIG", String, "Path to your YAML config file") do |o|
+    config["organization"] = o
   end
 
-  opts.on("-r REPO", "--repository REPO", String, "Define you repo name") do |r|
-    if r == ""
-      puts options
-      exit
-    end
-
-    options.repository = r
-  end
-
-  opts.on("-u USER", "--username USER", String, "Your username") do |u|
-    options.username = u
-  end
-
-  opts.on("-k KEY", "--authkey KEY", String, "Your 40 char token") do |k|
-    options.authkey = k
-  end
-
-  opts.on("-f FILE", "--file FILE", String, "CSV file") do |f|
-    if f == ""
-      puts options
-      exit
-    end
-    options.file = f
-  end
-
-  opts.on("-m MILESTONE", "--milestone MILESTONE", String, "Milestone Target") do |m|
-    if m == ""
-      puts options
-      exit
-    end
-    options.milestone = m
-  end
-
-  opts.separator ""
-  opts.separator "Common options:"
-
-  # No argument, shows at tail.  This will print an options summary.
-  # Try it and see!
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
     exit
   end
-
 end
 
 opts_parser.parse!(ARGV)
