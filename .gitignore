@@ -1,4 +1,2 @@
-iso-2022-jp
-shift_jis
-*.swp
-*iso-2022-jp*
+*.yml
+!sample_config.yml
