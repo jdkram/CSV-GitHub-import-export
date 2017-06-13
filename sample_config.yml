@@ -1,7 +1,8 @@
 organization: 'sallys-shoes'
 username: 'sally'
-use_password: false
-password: ''
-authkey: 'awdhZPBmUhV7C8KTvTXoqPrCYBfKrptqmPT6Z7Jk'
 repo: 'shoe-sorter'
-output_csv: './output_csvs/shoe-sorter-issues.csv'
+use_password: false
+milestone: 'Redesign' # Optional
+password: '' # Optional
+authkey: 'awdhZPBmUhV7C8KTvTXoqPrCYBfKrptqmPT6Z7Jk' # Optional
+output_csv: './output_csvs/shoe-sorter-issues.csv' # Optional
