@@ -1,5 +1,6 @@
 organization: 'sallys-shoes'
 username: 'sally'
+<<<<<<< HEAD
 repo: 'shoe-sorter'
 use_password: false
 milestone: 'Redesign' # Optional
